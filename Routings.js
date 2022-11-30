@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Wrapper from './reactComponents/Wrapper'
-import FarmPage from "./reactComponents/FarmsMap";
+import Wrapper from './reactComponents/Wrapper';
+import FarmPage from "./reactComponents/FarmPage";
 
 const Stack = createNativeStackNavigator();
 

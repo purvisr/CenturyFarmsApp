@@ -277,6 +277,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // Mapbox build rule for latest Mapbox Maps SDK for android
+    implementation ('com.mapbox.maps:android:10.10.1')
 }
 
 if (isNewArchitectureEnabled()) {

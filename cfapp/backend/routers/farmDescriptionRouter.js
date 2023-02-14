@@ -38,40 +38,37 @@ router.get(`/locationID/:id`, async (req, res) => {
     res.send(farm);
 })
 
-//Get farm description by name
+//Get farm description by farm name
 router.get(`/name/:name`, async (req, res) => {
-    //Allows for lower case queries
     let words = req.params.name.split(" ");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
     words = words.join(" ");
 
-    let farm = await FarmDescription.find().where('name').equals(words);
-    res.send(farm);
+    const farmList = await FarmDescription.find();
+    const farmMatches = farmList.filter(element => element.name.includes(words));
+    res.send(farmMatches);
 })
 
 //Get farm description by award year
 router.get(`/year/:year`, async (req, res) =>{
     let yearInt = parseInt(req.params.year);
     let farms = await FarmDescription.find().where('yearOfAward').equals(yearInt);
-    console.log(farms);
-    console.log(req.params.year);
-    console.log(typeof yearInt);
     res.send(farms);
 })
 
 //Get farm description by award type
 router.get(`/award/:name`, async (req, res) => {
-    //Allows for lower case queries
     let words = req.params.name.split(" ");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
     words = words.join(" ");
 
-    let farm = await FarmDescription.find().where('awardType').equals(words);
-    res.send(farm);
+    const farmList = await FarmDescription.find();
+    const farmMatches = farmList.filter(element => element.awardType.includes(words));
+    res.send(farmMatches);
 })
 
 export default router;

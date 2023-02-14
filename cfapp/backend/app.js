@@ -8,6 +8,10 @@ import cropRouter from './routers/cropRouter.js';
 import livestockRouter from './routers/livestockRouter.js';
 import farmDescriptionRouter from './routers/farmDescriptionRouter.js';
 import currentOwnerRouter from './routers/currentOwnerRouter.js';
+import currentFarmRouter from './routers/farmCurrentRouter.js';
+import pastFarmRouter from './routers/farmPastRouter.js';
+import originalOwnerRouter from './routers/originalOwnerRouter.js';
+import locationRouter from './routers/locationRouter.js';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -26,6 +30,10 @@ app.use(`${api}/crop`, cropRouter);
 app.use(`${api}/farmdesc`, farmDescriptionRouter);
 app.use(`${api}/livestock`, livestockRouter);
 app.use(`${api}/currentOwner`, currentOwnerRouter);
+app.use(`${api}/currentFarm`, currentFarmRouter);
+app.use(`${api}/pastFarm`, pastFarmRouter);
+app.use(`${api}/originalOwner`, originalOwnerRouter);
+app.use(`${api}/location`, locationRouter);
 
 mongoose.connect(connection_string, {
     useNewUrlParser: true,

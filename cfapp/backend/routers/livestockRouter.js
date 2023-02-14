@@ -16,7 +16,6 @@ router.get(`/id/:id`, async (req, res) => {
 
 //Get livestock by name
 router.get(`/name/:name`, async (req, res) => {
-    //Allows for lower case queries
     let words = req.params.name.split(" ");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);

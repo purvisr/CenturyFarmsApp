@@ -16,27 +16,23 @@ router.get(`/id/:id`, async (req, res) => {
 
 //Get current owner by name
 router.get(`/name/:name`, async (req, res) => {
-    //Allows for lower case queries
     let words = req.params.name.split(" ");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
     words = words.join(" ");
-    let currentOwner = await CurrentOwner.find().where('name').equals(words);
-    res.send(currentOwner);
+
+    const ownerList = await CurrentOwner.find();
+    const farmMatches = ownerList.filter(element => element.name.includes(words));
+    res.send(farmMatches);
 })
 
 //Get current owner by relationship to original owner
 router.get(`/relationship/:relationship`, async (req, res) => {
-    //Allows for lower case queries
     let lower = req.params.relationship.toLowerCase();
     const ownerList = await CurrentOwner.find();
-    const match = ownerList.find(owner => owner.relationshipToOriginalOwners.toLowerCase() === lower);
-    
-    console.log(match);
-    //let lower = req.params.relationship.toLowerCase();
-    //let currentOwner = await CurrentOwner.find().where('relationshipToOriginalOwners').equals(lower);
-    res.send(match);
+    const farmMatches = ownerList.filter(element => element.relationshipToOriginalOwners.toLowerCase().includes(lower));  
+    res.send(farmMatches);
 })
 
 export default router;

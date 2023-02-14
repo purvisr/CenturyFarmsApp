@@ -6,15 +6,7 @@
  */
 
  import React from 'react';
- import {
-   SafeAreaView,
-   ScrollView,
-   StatusBar,
-   StyleSheet,
-   Text,
-   useColorScheme,
-   View,
- } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
  /**
   * Victory native is our visualization tool for graphs on individual farm pages
@@ -24,14 +16,12 @@
   * but most (if not all) of the components work the same
   * and can be imported with the same name
   */
- import { 
+import {
   VictoryBar, 
   VictoryChart, 
-  VictoryTheme, 
-  VictoryArea, 
   VictoryAxis, 
   VictoryLine 
-} from "victory-native";
+} from 'victory-native';
 
 // --------------------------------------------------------------------------------------------------------
 // Graphs min and max temperature averages by year
@@ -44,7 +34,7 @@ const TempGraph = ({years, data_min, data_max}) => {
   var max_averages = [];
 
   // Array setup for computing averages
-  for(var i = 0; i < data_min.length; i++) {
+  for (var i = 0; i < data_min.length; i++) {
     const min_data = (1.8 * data_min[i]) + 32
     const max_data = (1.8 * data_max[i]) + 32
     temp_min_obj.push({x: years[i], y: min_data});
@@ -52,38 +42,48 @@ const TempGraph = ({years, data_min, data_max}) => {
   }
 
   // Compute yearly temp averages store them in max_averages & min_averages
-  for(var i = 0; i < unique_years.length; i++) {
-    var temp_min_by_year = temp_min_obj.filter(res => res.x.toString().includes(unique_years[i].toString()));
-    const temp_min_average = temp_min_by_year.reduce((total, next) => total + next.y, 0) / temp_min_by_year.length;
+  for (var i = 0; i < unique_years.length; i++) {
+    var temp_min_by_year = temp_min_obj.filter(res =>
+      res.x.toString().includes(unique_years[i].toString()),
+    );
+    const temp_min_average =
+      temp_min_by_year.reduce((total, next) => total + next.y, 0) /
+      temp_min_by_year.length;
     min_averages.push({x: unique_years[i], y: temp_min_average});
 
-    var temp_max_by_year = temp_max_obj.filter(res => res.x.toString().includes(unique_years[i].toString()));
-    const temp_max_average = temp_max_by_year.reduce((total, next) => total + next.y, 0) / temp_max_by_year.length;
-    max_averages.push({x: unique_years[i], y: temp_max_average})
+    var temp_max_by_year = temp_max_obj.filter(res =>
+      res.x.toString().includes(unique_years[i].toString()),
+    );
+    const temp_max_average =
+      temp_max_by_year.reduce((total, next) => total + next.y, 0) /
+      temp_max_by_year.length;
+    max_averages.push({x: unique_years[i], y: temp_max_average});
   }
 
   return (
     <View style={graphStyles.container}>
-      <VictoryChart maxDomain={{ y: 100 }}>
-        <VictoryAxis dependentAxis 
+      <VictoryChart maxDomain={{y: 100}}>
+        <VictoryAxis
+          dependentAxis
           style={{
-            grid: { stroke: '#D9D9D9', strokeWidth: 1},
+            grid: {stroke: '#D9D9D9', strokeWidth: 1},
           }}/>
-        <VictoryAxis tickFormat={(t) => `${t}`}
+        <VictoryAxis
+          tickFormat={t => `${t}`}
           style={{
-            grid: { stroke: '#D9D9D9', strokeWidth: 1},
+            grid: {stroke: '#D9D9D9', strokeWidth: 1},
           }}/>
         <VictoryLine
           style={{
-            data: { stroke: "blue" },
-            parent: { border: "1px solid #ccc"}
+            data: {stroke: 'blue'},
+            parent: {border: '1px solid #ccc'},
           }}
           data={min_averages}
         />
         <VictoryLine
           style={{
-            data: { stroke: "#e4211c" },
-            parent: { border: "1px solid #ccc"}
+            data: {stroke: '#e4211c'},
+            parent: {border: '1px solid #ccc'},
           }}
           data={max_averages}
         />
@@ -100,31 +100,39 @@ const PrecipGraph = ({years, data}) => {
   var precipData = []
 
   // Array setup for computing average
-  for(var i = 0; i < data.length; i++) {
+  for (var i = 0; i < data.length; i++) {
     data_obj.push({x: years[i], y: data[i], y0: 0});
   }
 
   // Compute yearly precip average for each year and store it in precipData
-  for(var i = 0; i < unique_years.length; i++) {
-    var data_by_year = data_obj.filter(res => res.x.toString().includes(unique_years[i].toString()));
-    const average = data_by_year.reduce((total, next) => total + next.y, 0) / data_by_year.length;
+  for (var i = 0; i < unique_years.length; i++) {
+    var data_by_year = data_obj.filter(res =>
+      res.x.toString().includes(unique_years[i].toString()),
+    );
+    const average =
+      data_by_year.reduce((total, next) => total + next.y, 0) /
+      data_by_year.length;
     precipData.push({x: unique_years[i], y: average, y0: 0});
   }
 
   return (
     <View style={graphStyles.container}>
-      <VictoryChart maxDomain={{ y: 15 }}>
+      <VictoryChart maxDomain={{y: 15}}>
         <VictoryAxis 
           dependentAxis 
           style={{
-            grid: { stroke: '#D9D9D9', strokeWidth: 1},
+            grid: {stroke: '#D9D9D9', strokeWidth: 1},
           }}/>
         <VictoryAxis 
-          tickFormat={(t) => `${t}`} 
+          tickFormat={t => `${t}`}
           style={{
-            grid: { stroke: '#D9D9D9', strokeWidth: 1},
+            grid: {stroke: '#D9D9D9', strokeWidth: 1},
           }}/>
-        <VictoryBar width={350} style={{data: {fill: "#66ccff"}}} data={precipData} />
+        <VictoryBar
+          width={350}
+          style={{data: {fill: '#66ccff'}}}
+          data={precipData}
+        />
       </VictoryChart>
     </View>
   );
@@ -133,9 +141,9 @@ const PrecipGraph = ({years, data}) => {
 const graphStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   }
 });
 
@@ -176,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   titleText: {
-    color:"#000",
+    color: '#000',
     textAlign: 'center',
     fontSize: 26,
     backgroundColor: '#fff',

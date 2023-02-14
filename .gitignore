@@ -62,3 +62,9 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+
+/android/app/src/main/res/values/developer-config.xml
+
+.env
+
+.private-key.json
